@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -68,6 +70,27 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $is_practitioner;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=speciality::class, inversedBy="users")
+     */
+    private $speciality;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=clinic::class, inversedBy="users")
+     */
+    private $clinic;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=languages::class, inversedBy="users")
+     */
+    private $languages;
+
+    public function __construct()
+    {
+        $this->speciality = new ArrayCollection();
+        $this->languages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -218,6 +241,66 @@ class User implements UserInterface
     public function setIsPractitioner(bool $is_practitioner): self
     {
         $this->is_practitioner = $is_practitioner;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|speciality[]
+     */
+    public function getSpeciality(): Collection
+    {
+        return $this->speciality;
+    }
+
+    public function addSpeciality(speciality $speciality): self
+    {
+        if (!$this->speciality->contains($speciality)) {
+            $this->speciality[] = $speciality;
+        }
+
+        return $this;
+    }
+
+    public function removeSpeciality(speciality $speciality): self
+    {
+        $this->speciality->removeElement($speciality);
+
+        return $this;
+    }
+
+    public function getClinic(): ?clinic
+    {
+        return $this->clinic;
+    }
+
+    public function setClinic(?clinic $clinic): self
+    {
+        $this->clinic = $clinic;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|languages[]
+     */
+    public function getLanguages(): Collection
+    {
+        return $this->languages;
+    }
+
+    public function addLanguage(languages $language): self
+    {
+        if (!$this->languages->contains($language)) {
+            $this->languages[] = $language;
+        }
+
+        return $this;
+    }
+
+    public function removeLanguage(languages $language): self
+    {
+        $this->languages->removeElement($language);
 
         return $this;
     }
