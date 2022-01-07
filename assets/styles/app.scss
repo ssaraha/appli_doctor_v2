@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+@import "~bootstrap/scss/bootstrap";
+
+
+body {
+    /*font-family: "Trebuchet MS";*/
+    font-style: normal;
+    font-variant: normal;
+    font-size: 13px;
+}
+
+
+.alert {
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+
+    &.alert-success {
+    background-color: green;
+    }
+    &.alert-error {
+        background-color: red;
+    }
+
+    &.alert-info {
+        background-color: blue;
+    }
+    &.alert-warning {
+        background-color: orange;
+    }
+
+}
+
+.img-profile{
+    max-width: 20px;
+    max-heigh: 20px;
+}
+
+.dropdown-profile {
+    left: -98px;
+}
