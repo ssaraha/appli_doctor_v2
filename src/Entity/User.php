@@ -72,17 +72,17 @@ class User implements UserInterface
     private $is_practitioner;
 
     /**
-     * @ORM\ManyToMany(targetEntity=speciality::class, inversedBy="users")
+     * @ORM\ManyToMany(targetEntity=Speciality::class, inversedBy="users")
      */
     private $speciality;
 
     /**
-     * @ORM\ManyToOne(targetEntity=clinic::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity=Clinic::class, inversedBy="users")
      */
     private $clinic;
 
     /**
-     * @ORM\ManyToMany(targetEntity=languages::class, inversedBy="users")
+     * @ORM\ManyToMany(targetEntity=Languages::class, inversedBy="users")
      */
     private $languages;
 

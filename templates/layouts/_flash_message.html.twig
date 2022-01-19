@@ -1,0 +1,9 @@
+{% for type, messages in app.flashes(['success', 'error', 'info', 'warning']) %}
+    {% for message in messages %}
+        {% if type is not null %}
+            <div class="alert alert-{{type}}" role="main">
+                {{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}    

@@ -1,0 +1,12 @@
+appli_doctor:
+    security:
+        login:
+            title_login: Veuillez connecter
+            title_page: Page de connexion
+            email: Votre edresse email
+            password: Votre mot de passe
+            remember_me: Se souviens de moi
+            forgot_password: Mot de passe oublié
+            log_in: Se connecter
+            cancel: Annuler
+            
