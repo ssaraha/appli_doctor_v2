@@ -3,15 +3,15 @@
 {% block title %}{{ 'appli_doctor.security.login.title_page'|trans }}{%endblock%}
 
 {% block body %}
+    {% if error %}
+        <div class="alert alert-error rounded" role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
     <div class="row">
         <div class="col-md-6 mx-auto">
             <form method="post" class="mt-5 shadow bg-light p-4 rounded">
                 <h1 class="mt-3 mb-5 text-muted text-center">
                     {{ 'appli_doctor.security.login.title_login'|trans }}
                 </h1>
-                {% if error %}
-                    <div class="alert alert-error" role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
 
                 {#% if app.user %}
                     <div class="mb-3">
@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <button class="btn btn-lg btn-block btn-primary" type="submit">
-                            {{ 'appli_doctor.security.login.log_in'|trans }}
+                            {{ 'appli_doctor.security.login.register'|trans }}
                         </button>
                     </div>
                     <div class="col-md-6">

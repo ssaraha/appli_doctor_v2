@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="{{  path('app_home') }}">
+      <img src="{{ asset('images/logo.png') }}">
+    </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample03">
+        <ul class="navbar-nav ml-auto">
+          {% if app.user is not null %}
+            <li class="nav-item">
+               <a class="nav-link" href="#">New pin </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"  onclick="event.preventDefault(); document.getElementById('js-logout-form').submit();">Logout</a>
+            </li>
+            <form id="js-logout-form" method="POST" action="{{ path('app_logout' )}}" style="display:none;">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout')}}">
+            </form>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('app_register') }}">
+                {{ 'appli_doctor.security.login.register'|trans }}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('app_login') }}" >
+                {{ 'appli_doctor.security.login.log_in'|trans }}
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+        
+      </div>
+  </div>
+  
+</nav>

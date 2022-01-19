@@ -9,4 +9,6 @@ appli_doctor:
             forgot_password: Mot de passe oublié
             log_in: Se connecter
             cancel: Annuler
+            register: S'inscrire
+            success_connecion: vous êtes connecté avec succès
             

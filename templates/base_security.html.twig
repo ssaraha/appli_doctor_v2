@@ -14,8 +14,9 @@
         {% endblock %}
     </head>
     <body>
-        <main role="main" class="container">
+            {{ include('layouts/_nav.html.twig') }}
             {{ include('layouts/_flash_message.html.twig') }}
+        <main role="main" class="container">
             {% block body %}{% endblock %}
         </main>
     </body>
