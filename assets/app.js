@@ -17,5 +17,5 @@ const $ = require('jquery');
 import 'bootstrap';
 
 $('document').ready(function(){
-    //alert('Bonjour');
+    
 });

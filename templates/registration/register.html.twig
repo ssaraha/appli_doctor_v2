@@ -1,6 +1,6 @@
 {% extends 'base_security.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}{{ 'appli_doctor.security.login.title_registration'|trans }}{% endblock %}
 
 {% block body %}
     {% for flashError in app.flashes('verify_email_error') %}
@@ -9,13 +9,70 @@
 
     <h1>Register</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    <div class="col-md-6 mx-auto">
+        <h5 class="text-success text-center">
+            Inscrivez-vous maintenant pour profiter de tous les services Doctena
+        </h5>
+        {{ form_start(registrationForm) }}
+            <div class="row">
+                <div class="col">
+                    {{ form_row(registrationForm.image)}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(registrationForm.firstname) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(registrationForm.lastname) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(registrationForm.email) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(registrationForm.plainPassword, {
+                        label: 'Password'
+                    }) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(registrationForm.is_practitioner, 
+                        {'attr': {'id': 'user_related', 'class': 'user_related'}}
+                    )}}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(registrationForm.adresses) }}
+                </div>
+            </div>
+            <div class="" id="user_related">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(registrationForm.speciality) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(registrationForm.clinic) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(registrationForm.languages) }}
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+            </div>
+            {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-lg btn-block btn-success">Register</button>
+                </div>
+                <div class="col-md-6">
+                    <a href="#" class="btn btn-block btn-outline-secondary btn-lg">Annuler</a>
+                </div>
+            </div>
+        {{ form_end(registrationForm) }}
+    </div>
 {% endblock %}

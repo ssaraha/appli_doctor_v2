@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Clinic;
+use App\Entity\Languages;
+use App\Entity\Speciality;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -11,12 +14,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('image')
+            ->add('firstname')
+            ->add('lastname')
             ->add('email')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -42,6 +49,24 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+            ])
+            ->add('adresses')
+            ->add('is_practitioner', CheckboxType::class, [
+                
+            ])
+            ->add('speciality', EntityType::class, [
+                'class'=> Speciality::class,
+                'choice_label' => 'name',
+                'multiple' => true
+            ])
+            ->add('clinic', EntityType::class, [
+                'class'=> Clinic::class,
+                'choice_label' => 'name'
+            ])
+            ->add('languages', EntityType::class, [
+                'class'=> Languages::class,
+                'choice_label' => 'name', 
+                'multiple' => true
             ])
         ;
     }

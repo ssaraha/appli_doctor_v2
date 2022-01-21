@@ -7,3 +7,4 @@ const $ = require('jquery');
 
 // start the Stimulus application
 import 'bootstrap';
+

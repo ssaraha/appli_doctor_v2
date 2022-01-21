@@ -11,4 +11,5 @@ appli_doctor:
             cancel: Annuler
             register: S'inscrire
             success_connecion: vous êtes connecté avec succès
+            title_registration: Page d'inscription
             
