@@ -15,13 +15,16 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     use Timestampable;
     /**
@@ -33,11 +36,14 @@ class User implements UserInterface
     
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="Ce champs ne doit pas être vide.")
+     * @Assert\Email(message='Vueillez entrez une adresse email valide')
      */
     private $email;
 
@@ -49,22 +55,32 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * 
      */
     private $password;
 
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champs ne doit pas être vide.")
+     * @Assert\Length(
+     * min = 2,
+     * minMessage= "Ce champs doit contenir au moins deux caractères."
+     * )
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champs ne doit pas être vide.")
+     * @Assert\Length(
+     * min = 2,
+     * minMessage= "Ce champs doit contenir au moins deux caractères.")
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
 
@@ -79,31 +95,35 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Ce champs ne doit pas être vide.")
      */
     private $adresses;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default":0})
      */
     private $is_practitioner;
 
     /**
      * @ORM\ManyToMany(targetEntity=Speciality::class, inversedBy="users")
+     * @ORM\JoinColumn(name="speciality_id", referencedColumnName="id", nullable=true)
      */
     private $speciality;
 
     /**
      * @ORM\ManyToOne(targetEntity=Clinic::class, inversedBy="users")
+     * @ORM\JoinColumn(name="clinic_id", referencedColumnName="id", nullable=true)
      */
     private $clinic;
 
     /**
      * @ORM\ManyToMany(targetEntity=Languages::class, inversedBy="users")
+     * @ORM\JoinColumn(name="languages_id", referencedColumnName="id", nullable=true)
      */
     private $languages;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default":0})
      */
     private $isVerified = false;
 
@@ -367,5 +387,29 @@ class User implements UserInterface
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
     }
 }

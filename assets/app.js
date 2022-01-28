@@ -16,6 +16,4 @@ const $ = require('jquery');
 // start the Stimulus application
 import 'bootstrap';
 
-$('document').ready(function(){
-    
-});
+

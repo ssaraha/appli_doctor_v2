@@ -17,6 +17,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
+use App\Utils\Utils;
+
 class RegistrationController extends AbstractController
 {
     private $emailVerifier;
@@ -29,7 +31,9 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordEncoderInterface $userPasswordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator,
+         EntityManagerInterface $entityManager,
+         Utils $utils): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -43,6 +47,11 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            //dd($form['is_practitioner']->getData());
+            $user_code = $utils->createUserCode($form['is_practitioner']->getData());
+            $user->setCode($user_code);
+            //dd($user);
 
             $entityManager->persist($user);
             $entityManager->flush();

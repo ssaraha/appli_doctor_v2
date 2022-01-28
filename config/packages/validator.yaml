@@ -1,4 +1,5 @@
 framework:
+
     validation:
         email_validation_mode: html5
 
@@ -6,3 +7,9 @@ framework:
         # For instance, basic validation constraints will be inferred from Doctrine's metadata.
         #auto_mapping:
         #    App\Entity\: []
+        # config/validator/validation.yaml
+        # App\Entity\User:
+            # properties:
+                # name:
+                    # - NotBlank: { message: 'author.name.not_blank' }
+

@@ -24,6 +24,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
+
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
     use TargetPathTrait;
@@ -128,9 +129,17 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      * 
      * Redirection vers un page dedié si un user tente de visiter une page qui a besoin de connexion ==> ici c'est la page login
      */
-    public function start(Request $request, AuthenticationException $authException = null): Response
+    /*public function start(Request $request, AuthenticationException $authException = null): Response
     {
         $url = $this->getLoginUrl($request);
+
+        return new RedirectResponse($url);  
+    }*/
+
+    public function start(Request $request, AuthenticationException $authException = null)
+    {
+        $request->getSession()->getFlashBag()->add('error', 'You need log in first');
+        $url = $this->getLoginUrl();
 
         return new RedirectResponse($url);
     }

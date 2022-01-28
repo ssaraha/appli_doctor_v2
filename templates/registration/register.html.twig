@@ -10,13 +10,13 @@
     <h1>Register</h1>
 
     <div class="col-md-6 mx-auto">
-        <h5 class="text-success text-center">
+        <h5 class="mt-4 text-success text-center">
             Inscrivez-vous maintenant pour profiter de tous les services Doctena
         </h5>
-        {{ form_start(registrationForm) }}
+        {{ form_start(registrationForm, {'attr': {novalidate:'novalidate'}}) }}
             <div class="row">
                 <div class="col">
-                    {{ form_row(registrationForm.image)}}
+                    {{ form_row(registrationForm.imageFile)}}
                 </div>
             </div>
             <div class="row">
@@ -32,9 +32,7 @@
                     {{ form_row(registrationForm.email) }}
                 </div>
                 <div class="col-md-6">
-                    {{ form_row(registrationForm.plainPassword, {
-                        label: 'Password'
-                    }) }}
+                    {{ form_row(registrationForm.plainPassword) }}
                 </div>
             </div>
             <div class="row">
@@ -47,7 +45,7 @@
                     {{ form_row(registrationForm.adresses) }}
                 </div>
             </div>
-            <div class="" id="user_related">
+            <div class="d-none" id="user_related">
                 <div class="row">
                     <div class="col-md-6">
                         {{ form_row(registrationForm.speciality) }}
